@@ -72,6 +72,9 @@
 			"delegate": {
 				"description": "Commands relating to Lisk delegates."
 			},
+			"genesis": {
+				"description": "Commands relating to Lisk genesis block creation."
+			},
 			"node": {
 				"description": "Commands relating to Lisk node."
 			},
