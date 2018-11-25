@@ -2,7 +2,7 @@
 	"json": true,
 	"api": {
 		"nodes": [],
-		"network": "main"
+		"network": "znl_devnet"
 	},
 	"pretty": false
 }
