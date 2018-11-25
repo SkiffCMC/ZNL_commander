@@ -52,7 +52,7 @@
 	},
 	"oclif": {
 		"commands": "./dist/commands",
-		"bin": "lisk",
+		"bin": "znl",
 		"plugins": [
 			"@oclif/plugin-help"
 		],
