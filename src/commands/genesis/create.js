@@ -42,9 +42,9 @@ export default class CreateCommand extends BaseCommand {
 		) {
 			throw new Error('Number flag must be an integer and greater than 0');
 		}*/
-		const number = 101;
+		const number = 11;
 		const accounts = new Array(number).fill().map(createAccount);
-		this.print(accounts);
+		this.print(accounts.length);
 	}
 }
 
