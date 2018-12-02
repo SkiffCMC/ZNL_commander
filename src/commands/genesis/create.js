@@ -14,7 +14,7 @@
  *
  */
 import { flags as flagParser } from '@oclif/command';
-import cryptography from '@liskhq/lisk-cryptography';
+import cryptography from '@znlhq/znl-cryptography';
 import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
