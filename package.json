@@ -107,11 +107,11 @@
 		"/default_config.json"
 	],
 	"dependencies": {
-		"@znlhq/znl-api-client": "/home/skiffcmc/ZNL_elements/packages/lisk-api-client",
-		"@znlhq/znl-constants": "/home/skiffcmc/ZNL_elements/packages/lisk-constants",
-		"@znlhq/znl-cryptography": "/home/skiffcmc/ZNL_elements/packages/lisk-cryptography",
-		"@znlhq/znl-passphrase": "/home/skiffcmc/ZNL_elements/packages/lisk-passphrase",
-		"@znlhq/znl-transactions": "/home/skiffcmc/ZNL_elements/packages/lisk-transactions",
+		"@znlhq/znl-api-client": "/home/znl/ZNL_elements/packages/lisk-api-client",
+		"@znlhq/znl-constants": "/home/znl/ZNL_elements/packages/lisk-constants",
+		"@znlhq/znl-cryptography": "/home/znl/ZNL_elements/packages/lisk-cryptography",
+		"@znlhq/znl-passphrase": "/home/znl/ZNL_elements/packages/lisk-passphrase",
+		"@znlhq/znl-transactions": "/home/znl/ZNL_elements/packages/lisk-transactions",
 		"@liskhq/lisk-api-client": "1.1.0",
 		"@liskhq/lisk-constants": "1.1.0",
 		"@liskhq/lisk-cryptography": "1.1.0",
