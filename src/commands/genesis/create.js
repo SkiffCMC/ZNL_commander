@@ -14,7 +14,7 @@
  *
  */
 import { flags as flagParser } from '@oclif/command';
-import { cryptography } from 'znl-elements';
+import { cryptography, transaction } from 'znl-elements';
 import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
@@ -29,6 +29,14 @@ const createAccount = () => {
 		address,
 	};
 };
+
+const processInputs = username => ({ passphrase, secondPassphrase }) =>
+	transaction.registerDelegate({
+		passphrase,
+		secondPassphrase,
+		username,
+	});
+
 
 export default class CreateCommand extends BaseCommand {
 	async run() {
@@ -45,6 +53,7 @@ export default class CreateCommand extends BaseCommand {
 		const number = 11;
 		const accounts = new Array(number).fill().map(createAccount);
 		this.print(accounts);
+		this.print(processInputs('genesis_0'));
 	}
 }
 
