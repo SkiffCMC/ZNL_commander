@@ -50,14 +50,14 @@ export default class CreateCommand extends BaseCommand {
 		) {
 			throw new Error('Number flag must be an integer and greater than 0');
 		}*/
-		const number = 11;
+		const number = 3;
 		const accounts = new Array(number).fill().map(createAccount);
 		this.print(accounts);
 		//function createDelegateTransaction(phrase, pos){
 		//	this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
 		//};
 		accounts.forEach(function tr(value,index) {
-			this.print(transaction.registerDelegate({username: 'genesis_'+index, passphrase: value.passphrase, }))
+			console.log(transaction.registerDelegate({username: 'genesis_'+index, passphrase: value.passphrase, }))
 		});
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
