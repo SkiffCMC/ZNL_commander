@@ -20,7 +20,7 @@ import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
 const createAccount = () => {
 	const passphrase = createMnemonicPassphrase();
-	const { privateKey, publicKey } = cryptography.getKeys(passphrase);
+	const { privateKey, publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(passphrase);
 	const address = cryptography.getAddressFromPublicKey(publicKey);
 	return {
 		passphrase,
