@@ -14,13 +14,13 @@
  *
  */
 import { flags as flagParser } from '@oclif/command';
-import cryptography from '@znlhq/znl-client';
+import { cryptography } from '@znlhq/znl-elements';
 import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
 const createAccount = () => {
 	const passphrase = createMnemonicPassphrase();
-	const { privateKey, publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(passphrase);
+	const { privateKey, publicKey } = cryptography.getKeys(passphrase);
 	const address = cryptography.getAddressFromPublicKey(publicKey);
 	return {
 		passphrase,
