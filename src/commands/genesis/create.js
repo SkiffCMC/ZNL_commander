@@ -29,13 +29,13 @@ const createAccount = () => {
 		address,
 	};
 };
-
+/*
 const processInputs = username => ({ passphrase, secondPassphrase }) =>
 	transaction.registerDelegate({
 		passphrase,
 		secondPassphrase,
 		username,
-	});
+	});*/
 
 
 export default class CreateCommand extends BaseCommand {
@@ -53,7 +53,7 @@ export default class CreateCommand extends BaseCommand {
 		const number = 11;
 		const accounts = new Array(number).fill().map(createAccount);
 		this.print(accounts);
-		this.print(processInputs('genesis_0'));
+		//this.print(processInputs('genesis_0'));
 	}
 }
 
