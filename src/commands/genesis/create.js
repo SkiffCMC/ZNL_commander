@@ -44,7 +44,7 @@ export default class CreateCommand extends BaseCommand {
 		}*/
 		const number = 11;
 		const accounts = new Array(number).fill().map(createAccount);
-		this.print(accounts.length);
+		this.print(accounts);
 	}
 }
 
