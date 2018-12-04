@@ -53,11 +53,11 @@ export default class CreateCommand extends BaseCommand {
 		const number = 11;
 		const accounts = new Array(number).fill().map(createAccount);
 		this.print(accounts);
-		function createDelegateTransaction(phrase, pos){
-			this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
-		};
+		//function createDelegateTransaction(phrase, pos){
+		//	this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
+		//};
 		accounts.forEach(function tr(value,index) {
-			createDelegateTransaction(value.passphrase,index);
+			this.print(transaction.registerDelegate({username: 'genesis_'+index, passphrase: value.passphrase, }))
 		});
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
