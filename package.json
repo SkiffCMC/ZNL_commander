@@ -112,6 +112,7 @@
 		"@znlhq/znl-cryptography": "/home/znl/ZNL_elements/packages/lisk-cryptography",
 		"@znlhq/znl-passphrase": "/home/znl/ZNL_elements/packages/lisk-passphrase",
 		"@znlhq/znl-transactions": "/home/znl/ZNL_elements/packages/lisk-transactions",
+		"@znlhq/znl-client": "/home/znl/ZNL_elements/packages/lisk-client",
 		"@liskhq/lisk-api-client": "1.1.0",
 		"@liskhq/lisk-constants": "1.1.0",
 		"@liskhq/lisk-cryptography": "1.1.0",
