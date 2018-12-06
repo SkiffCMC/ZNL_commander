@@ -88,7 +88,7 @@ const createGenesis = (data) => {
 
 		for (let i = 0; i < transactions.length; i++) {
 			const transaction = transactions[i];
-			const bytes = getTransactionBytes(transaction);
+			const bytes = transaction.getTransactionBytes(transaction);
 
 			size += bytes.length;
 
