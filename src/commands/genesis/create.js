@@ -67,10 +67,10 @@ const createGenesis = (data) => {
 				return 1;
 			}
 			// Place depending on amount (lower first)
-			if (a.amount.isLessThan(b.amount)) {
+			if (a.amount< b.amount) {
 				return -1;
 			}
-			if (a.amount.isGreaterThan(b.amount)) {
+			if (a.amount > b.amount) {
 				return 1;
 			}
 			return 0;
