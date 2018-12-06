@@ -51,6 +51,7 @@ export default class CreateCommand extends BaseCommand {
 		) {
 			throw new Error('Number flag must be an integer and greater than 0');
 		}*/
+		let blockGen = new Block();
 		const genesisAccount = createAccount();
 		const whitelistAccount = createAccount();
 		//this.print('Genesis acc:');
