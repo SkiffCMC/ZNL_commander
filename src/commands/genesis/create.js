@@ -15,9 +15,11 @@
  */
 import { flags as flagParser } from '@oclif/command';
 import { cryptography, transaction } from 'znl-elements';
-import * as blocklogic from 'znl/logic/block.js';
 import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
+
+const crypto = require('crypto');
+var sodium = require('sodium-native');
 
 const createAccount = () => {
 	const passphrase = createMnemonicPassphrase();
@@ -30,6 +32,95 @@ const createAccount = () => {
 		address,
 	};
 };
+
+const createGenesis = (data) => {
+		const transactions = data.transactions.sort((a, b) => {
+			// Place MULTI transaction after all other transaction types
+			if (
+				a.type === transactionTypes.MULTI &&
+				b.type !== transactionTypes.MULTI
+			) {
+				return 1;
+			}
+			// Place all other transaction types before MULTI transaction
+			if (
+				a.type !== transactionTypes.MULTI &&
+				b.type === transactionTypes.MULTI
+			) {
+				return -1;
+			}
+			// Place depending on type (lower first)
+			if (a.type < b.type) {
+				return -1;
+			}
+			if (a.type > b.type) {
+				return 1;
+			}
+			// Place depending on amount (lower first)
+			if (a.amount.isLessThan(b.amount)) {
+				return -1;
+			}
+			if (a.amount.isGreaterThan(b.amount)) {
+				return 1;
+			}
+			return 0;
+		});
+
+		const nextHeight = 1;
+
+		const reward = 0;
+		let totalFee = new Bignum(0);
+		let totalAmount = new Bignum(0);
+		let size = 0;
+
+		const blockTransactions = [];
+		const payloadHash = crypto.createHash('sha256');
+
+		for (let i = 0; i < transactions.length; i++) {
+			const transaction = transactions[i];
+			const bytes = getTransactionBytes(transaction);
+
+			size += bytes.length;
+
+			totalFee = totalFee.plus(transaction.fee);
+			totalAmount = totalAmount.plus(transaction.amount);
+
+			blockTransactions.push(transaction);
+			payloadHash.update(bytes);
+		}
+
+		let block = {
+			version: 0,
+			totalAmount,
+			totalFee,
+			reward,
+			payloadHash: payloadHash.digest().toString('hex'),
+			timestamp: data.timestamp,
+			numberOfTransactions: blockTransactions.length,
+			payloadLength: size,
+			previousBlock: data.previousBlock.id,
+			generatorPublicKey: data.keypair.publicKey.toString('hex'),
+			transactions: blockTransactions,
+		};
+
+		try {
+			hash = crypto
+			.createHash('sha256')
+			.update(this.getBytes(block))
+			.digest();
+			var signature = Buffer.alloc(sodium.crypto_sign_BYTES);
+			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
+
+			block.blockSignature = sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
+
+			//block = this.objectNormalize(block);
+		} catch (e) {
+			throw e;
+		}
+
+		return block;
+	}
+
 /*
 const processInputs = username => ({ passphrase, secondPassphrase }) =>
 	transaction.registerDelegate({
