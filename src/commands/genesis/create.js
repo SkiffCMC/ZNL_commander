@@ -95,10 +95,10 @@ const createGenesis = (data) => {
 			totalFee,
 			reward,
 			payloadHash: payloadHash.digest().toString('hex'),
-			timestamp: data.timestamp,
+			timestamp: 0,
 			numberOfTransactions: blockTransactions.length,
 			payloadLength: size,
-			previousBlock: data.previousBlock.id,
+			previousBlock: null,
 			generatorPublicKey: data.keypair.publicKey.toString('hex'),
 			transactions: blockTransactions,
 		};
@@ -127,8 +127,8 @@ const processInputs = username => ({ passphrase, secondPassphrase }) =>
 		passphrase,
 		secondPassphrase,
 		username,
-	});*/
-
+	});
+*/
 
 export default class CreateCommand extends BaseCommand {
 	async run() {
@@ -151,16 +151,18 @@ export default class CreateCommand extends BaseCommand {
 		const delegates = new Array(number).fill().map(createAccount);
 		//this.print('Accounts:');
 		this.print(delegates);
+		const transactions = [];
 		//function createDelegateTransaction(phrase, pos){
 		//	this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
 		//};
-		console.log(transaction.transfer({amount: '1000000', passphrase:genesisAccount.passphrase, recipientId:whitelistAccount.address},1,genesisAccount.passphrase));
+		transactions.push(transaction.transfer({amount: '1000000', passphrase:genesisAccount.passphrase, recipientId:whitelistAccount.address},1,genesisAccount.passphrase));
 		const votes = new Array(number).fill();
 		delegates.forEach(function tr(value,index) {
-			console.log(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
+			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
 		});
-		console.log(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
+		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
+		console.log(createGenesis({transactions: transactions, keypair: {privateKey: genesisAccount.privateKey, publicKey: genesisAccount.publicKey}}));
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
 }
