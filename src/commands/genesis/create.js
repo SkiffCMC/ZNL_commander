@@ -56,7 +56,7 @@ export default class CreateCommand extends BaseCommand {
 		//function createDelegateTransaction(phrase, pos){
 		//	this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
 		//};
-		const votes = new Array(string).fill().map(account.passphrase);
+		const votes = new Array(number).fill().map(account.passphrase);
 		accounts.forEach(function tr(value,index) {
 			console.log(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,accounts[0].passphrase));
 		});
