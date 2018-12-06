@@ -61,7 +61,7 @@ export default class CreateCommand extends BaseCommand {
 			console.log(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,accounts[0].passphrase));
 			votes[index] = value.passphrase;
 		});
-		console.log(transaction.castVotes({passphrase:account[0].passphrase, votes:votes},1,accounts[0].passphrase));
+		console.log(transaction.castVotes({passphrase:accounts[0].passphrase, votes:votes},1,accounts[0].passphrase));
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
 }
