@@ -79,8 +79,8 @@ const createGenesis = (data) => {
 		const nextHeight = 1;
 
 		const reward = 0;
-		let totalFee = new Bignum(0);
-		let totalAmount = new Bignum(0);
+		let totalFee = 0;
+		let totalAmount = 0;
 		let size = 0;
 
 		const blockTransactions = [];
