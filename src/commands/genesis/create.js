@@ -15,7 +15,7 @@
  */
 import { flags as flagParser } from '@oclif/command';
 import { cryptography, transaction } from 'znl-elements';
-import { Block } from 'znl/logic/block.js';
+import * as blocklogic from 'znl/logic/block.js';
 import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
@@ -51,7 +51,7 @@ export default class CreateCommand extends BaseCommand {
 		) {
 			throw new Error('Number flag must be an integer and greater than 0');
 		}*/
-		//let blockGen = new Block(null,null,null,null,1);
+		let blockGen = new blocklogic.Block(null,null,null,null,1);
 		const genesisAccount = createAccount();
 		const whitelistAccount = createAccount();
 		//this.print('Genesis acc:');
