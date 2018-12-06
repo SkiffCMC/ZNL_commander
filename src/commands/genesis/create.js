@@ -59,7 +59,7 @@ export default class CreateCommand extends BaseCommand {
 		const votes = new Array(number).fill();
 		accounts.forEach(function tr(value,index) {
 			console.log(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,accounts[0].passphrase));
-			votes[index] = value.passphrase;
+			votes[index] = value.publicKey;
 		});
 		console.log(transaction.castVotes({passphrase:accounts[0].passphrase, votes:votes},1,accounts[0].passphrase));
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
