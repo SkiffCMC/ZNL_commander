@@ -93,7 +93,7 @@ const getBytes = function(block) {
 			byteBuffer.writeByte(payloadHashBuffer[i]);
 		}
 
-		const generatorPublicKeyBuffer = this.scope.ed.hexToBuffer(
+		const generatorPublicKeyBuffer = hexToBuffer(
 			block.generatorPublicKey
 		);
 		for (let i = 0; i < generatorPublicKeyBuffer.length; i++) {
@@ -101,7 +101,7 @@ const getBytes = function(block) {
 		}
 
 		if (block.blockSignature) {
-			const blockSignatureBuffer = this.scope.ed.hexToBuffer(
+			const blockSignatureBuffer = hexToBuffer(
 				block.blockSignature
 			);
 			for (let i = 0; i < blockSignatureBuffer.length; i++) {
