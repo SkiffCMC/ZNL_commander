@@ -20,6 +20,7 @@ import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
 const crypto = require('crypto');
+const ByteBuffer = require('bytebuffer');
 var sodium = require('sodium-native');
 
 const createAccount = () => {
@@ -32,6 +33,89 @@ const createAccount = () => {
 		publicKey,
 		address,
 	};
+};
+
+hexToBuffer = hex => {
+	if (typeof hex !== 'string') {
+		throw new TypeError('Argument must be a string.');
+	}
+	// Regex to match valid hex string with even length
+	const hexRegex = /^([0-9a-f]{2})+$/i;
+	const matchedHex = (hex.match(hexRegex) || [])[0];
+	if (!matchedHex) {
+		throw new TypeError('Argument must be a valid hex string.');
+	}
+	return Buffer.from(matchedHex, 'hex');
+};
+
+getBytes = function(block) {
+	const capacity =
+		4 + // version (int)
+		4 + // timestamp (int)
+		8 + // previousBlock
+		4 + // numberOfTransactions (int)
+		8 + // totalAmount (long)
+		8 + // totalFee (long)
+		8 + // reward (long)
+		4 + // payloadLength (int)
+		32 + // payloadHash
+		32 + // generatorPublicKey
+		64 + // blockSignature or unused
+		4; // unused
+	let bytes;
+
+	try {
+		const byteBuffer = new ByteBuffer(capacity, true);
+		byteBuffer.writeInt(block.version);
+		byteBuffer.writeInt(block.timestamp);
+
+		if (block.previousBlock) {
+			const pb = new Bignum(block.previousBlock).toBuffer({ size: '8' });
+
+			for (let i = 0; i < 8; i++) {
+				byteBuffer.writeByte(pb[i]);
+			}
+		} else {
+			for (let i = 0; i < 8; i++) {
+				byteBuffer.writeByte(0);
+			}
+		}
+
+		byteBuffer.writeInt(block.numberOfTransactions);
+		byteBuffer.writeLong(block.totalAmount.toString());
+		byteBuffer.writeLong(block.totalFee.toString());
+		byteBuffer.writeLong(block.reward.toString());
+
+		byteBuffer.writeInt(block.payloadLength);
+
+		const payloadHashBuffer = hexToBuffer(block.payloadHash);
+		for (let i = 0; i < payloadHashBuffer.length; i++) {
+			byteBuffer.writeByte(payloadHashBuffer[i]);
+		}
+
+		const generatorPublicKeyBuffer = this.scope.ed.hexToBuffer(
+			block.generatorPublicKey
+		);
+		for (let i = 0; i < generatorPublicKeyBuffer.length; i++) {
+			byteBuffer.writeByte(generatorPublicKeyBuffer[i]);
+		}
+
+		if (block.blockSignature) {
+			const blockSignatureBuffer = this.scope.ed.hexToBuffer(
+				block.blockSignature
+			);
+			for (let i = 0; i < blockSignatureBuffer.length; i++) {
+				byteBuffer.writeByte(blockSignatureBuffer[i]);
+			}
+		}
+
+		byteBuffer.flip();
+		bytes = byteBuffer.toBuffer();
+	} catch (e) {
+		throw e;
+	}
+
+	return bytes;
 };
 
 const createGenesis = (data) => {
