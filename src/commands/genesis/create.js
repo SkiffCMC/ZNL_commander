@@ -15,6 +15,7 @@
  */
 import { flags as flagParser } from '@oclif/command';
 import { cryptography, transaction } from 'znl-elements';
+//import { utils } from 'znl-elements/transaction'
 import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
@@ -88,7 +89,7 @@ const createGenesis = (data) => {
 
 		for (let i = 0; i < transactions.length; i++) {
 			const tr = transactions[i];
-			const bytes = transaction.getTransactionBytes(tr);
+			const bytes = transaction.utils.getTransactionBytes(tr);
 
 			size += bytes.length;
 
