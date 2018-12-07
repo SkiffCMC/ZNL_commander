@@ -216,10 +216,9 @@ const createGenesis = (data) => {
 			.digest();
 			var signature = Buffer.alloc(sodium.crypto_sign_BYTES);
 			console.log('before first sodium');
-			let keypair = makeKeypair(data.passphrase);
-			sodium.crypto_sign_detached(signature, hash, keypair.privateKey);
+			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
 			console.log('before second sodium');
-			block.blockSignature = sodium.crypto_sign_detached(signature, hash, keypair.privateKey);
+			block.blockSignature = sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
 
 			//block = this.objectNormalize(block);
 		} catch (e) {
@@ -269,8 +268,9 @@ export default class CreateCommand extends BaseCommand {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
 		});
+		let keypair = makeKeypair(genesisAccount.passphrase);
 		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
-		console.log(createGenesis({transactions: transactions, passphrase: genesisAccount.passphrase}));
+		console.log(createGenesis({transactions: transactions, keypair: keypair}));
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
 }
