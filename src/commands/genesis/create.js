@@ -219,7 +219,7 @@ const createGenesis = (data) => {
 			//console.log('before first sodium');
 			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
 			//console.log('before second sodium');
-			block.blockSignature = sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
+			block.blockSignature = signature;
 			console.log(block.blockSignature);
 			//block = this.objectNormalize(block);
 		} catch (e) {
