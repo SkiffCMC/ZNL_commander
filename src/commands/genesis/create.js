@@ -93,8 +93,8 @@ const createGenesis = (data) => {
 
 			size += bytes.length;
 
-			totalFee = totalFee.plus(tr.fee);
-			totalAmount = totalAmount.plus(tr.amount);
+			totalFee += tr.fee;
+			totalAmount += tr.amount;
 
 			blockTransactions.push(tr);
 			payloadHash.update(bytes);
