@@ -199,7 +199,7 @@ const createGenesis = (data) => {
 		};
 
 		try {
-			hash = crypto
+			let hash = crypto
 			.createHash('sha256')
 			.update(getBytes(block))
 			.digest();
