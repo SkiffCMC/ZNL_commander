@@ -204,8 +204,9 @@ const createGenesis = (data) => {
 			.update(getBytes(block))
 			.digest();
 			var signature = Buffer.alloc(sodium.crypto_sign_BYTES);
+			console.log('before first sodium');
 			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
-
+			console.log('before second sodium');
 			block.blockSignature = sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
 
 			//block = this.objectNormalize(block);
