@@ -87,15 +87,15 @@ const createGenesis = (data) => {
 		const payloadHash = crypto.createHash('sha256');
 
 		for (let i = 0; i < transactions.length; i++) {
-			const transaction = transactions[i];
-			const bytes = transaction.getTransactionBytes(transaction);
+			const tr = transactions[i];
+			const bytes = transaction.getTransactionBytes(tr);
 
 			size += bytes.length;
 
-			totalFee = totalFee.plus(transaction.fee);
-			totalAmount = totalAmount.plus(transaction.amount);
+			totalFee = totalFee.plus(tr.fee);
+			totalAmount = totalAmount.plus(tr.amount);
 
-			blockTransactions.push(transaction);
+			blockTransactions.push(tr);
 			payloadHash.update(bytes);
 		}
 
