@@ -35,6 +35,17 @@ const createAccount = () => {
 	};
 };
 
+const makeKeypair = function(hash) {
+	var publicKey = Buffer.alloc(sodium.crypto_sign_PUBLICKEYBYTES);
+	var privateKey = Buffer.alloc(sodium.crypto_sign_SECRETKEYBYTES);
+	sodium.crypto_sign_seed_keypair(publicKey, privateKey, hash);
+
+	return {
+		publicKey,
+		privateKey,
+	};
+};
+
 const hexToBuffer = function(hex) {
 	if (typeof hex !== 'string') {
 		throw new TypeError('Argument must be a string.');
@@ -205,9 +216,10 @@ const createGenesis = (data) => {
 			.digest();
 			var signature = Buffer.alloc(sodium.crypto_sign_BYTES);
 			console.log('before first sodium');
-			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
+			let keypair = makeKeypair(data.passphrase);
+			sodium.crypto_sign_detached(signature, hash, keypair.privateKey);
 			console.log('before second sodium');
-			block.blockSignature = sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
+			block.blockSignature = sodium.crypto_sign_detached(signature, hash, keypair.privateKey);
 
 			//block = this.objectNormalize(block);
 		} catch (e) {
@@ -258,7 +270,7 @@ export default class CreateCommand extends BaseCommand {
 			votes[index] = value.publicKey;
 		});
 		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
-		console.log(createGenesis({transactions: transactions, keypair: {privateKey: genesisAccount.privateKey, publicKey: genesisAccount.publicKey}}));
+		console.log(createGenesis({transactions: transactions, passphrase: genesisAccount.passphrase}));
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
 }
