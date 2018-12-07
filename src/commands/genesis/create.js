@@ -35,7 +35,7 @@ const createAccount = () => {
 	};
 };
 
-hexToBuffer = hex => {
+const hexToBuffer = function(hex) {
 	if (typeof hex !== 'string') {
 		throw new TypeError('Argument must be a string.');
 	}
@@ -48,7 +48,7 @@ hexToBuffer = hex => {
 	return Buffer.from(matchedHex, 'hex');
 };
 
-getBytes = function(block) {
+const getBytes = function(block) {
 	const capacity =
 		4 + // version (int)
 		4 + // timestamp (int)
@@ -201,7 +201,7 @@ const createGenesis = (data) => {
 		try {
 			hash = crypto
 			.createHash('sha256')
-			.update(this.getBytes(block))
+			.update(getBytes(block))
 			.digest();
 			var signature = Buffer.alloc(sodium.crypto_sign_BYTES);
 			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
