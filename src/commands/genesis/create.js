@@ -268,7 +268,10 @@ export default class CreateCommand extends BaseCommand {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
 		});
-		let keypair = makeKeypair(genesisAccount.passphrase);
+		let keypair = makeKeypair(crypto
+					.createHash('sha256')
+					.update(genesisAccount.passphrase, 'utf8')
+					.digest());
 		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
 		console.log(createGenesis({transactions: transactions, keypair: keypair}));
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
