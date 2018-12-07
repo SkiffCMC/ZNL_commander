@@ -207,6 +207,7 @@ const createGenesis = (data) => {
 			previousBlock: null,
 			generatorPublicKey: data.keypair.publicKey.toString('hex'),
 			transactions: blockTransactions,
+			blockSignature:null,
 		};
 
 		try {
@@ -215,11 +216,11 @@ const createGenesis = (data) => {
 			.update(getBytes(block))
 			.digest();
 			var signature = Buffer.alloc(sodium.crypto_sign_BYTES);
-			console.log('before first sodium');
+			//console.log('before first sodium');
 			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
-			console.log('before second sodium');
+			//console.log('before second sodium');
 			block.blockSignature = sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
-
+			console.logblock.blockSignature();
 			//block = this.objectNormalize(block);
 		} catch (e) {
 			throw e;
