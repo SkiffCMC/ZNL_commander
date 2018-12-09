@@ -20,7 +20,7 @@ import BaseCommand from '../../base';
 import { createMnemonicPassphrase } from '../../utils/mnemonic';
 //import { BigNumber } from '../../utils/bignum.js';
 
-const Bignum = require('../../utils/bignum.js');
+const Bignum = require('bignumber.js');
 const crypto = require('crypto');
 const ByteBuffer = require('bytebuffer');
 var sodium = require('sodium-native');
@@ -179,6 +179,7 @@ const createGenesis = (data) => {
 		const reward = 0 ;
 		let totalFee = new Bignum(0);
 		let totalAmount = new Bignum(0);
+		console.log('totalAmoint='+totalAmount);
 		let size = 0;
 
 		const blockTransactions = [];
