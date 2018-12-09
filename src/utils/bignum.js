@@ -18,7 +18,7 @@
  * Buffer functions that implements bignumber.
  *
  * @class
- * @memberof helpers
+ * @memberof utils
  *
  * @requires bignumber
  */
