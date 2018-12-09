@@ -178,8 +178,8 @@ const createGenesis = (data) => {
 
 		const reward = 0 ;
 		let totalFee = new Bignum(0);
-		let totalAmount = new Bignum(0);
-		console.log('totalAmoint='+totalAmount);
+		let totalAmount = new Bignumb(0);
+		console.log('totalAmount='+totalAmount);
 		let size = 0;
 
 		const blockTransactions = [];
@@ -191,8 +191,8 @@ const createGenesis = (data) => {
 
 			size += bytes.length;
 
-			totalFee += totalFee.plus(tr.fee);
-			totalAmount += totalAmount.plus(tr.amount);
+			totalFee = totalFee.plus(tr.fee);
+			totalAmount = totalAmount.plus(tr.amount);
 
 			blockTransactions.push(tr);
 			payloadHash.update(bytes);
