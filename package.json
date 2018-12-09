@@ -121,6 +121,7 @@
 		"@liskhq/lisk-transactions": "1.1.0",
 		"sodium-native": "LiskHQ/sodium-native#dd0319f",
 		"bytebuffer": "=5.0.1",
+		"bignumber.js": "=7.2.1",
 		"@oclif/command": "1.5.0",
 		"@oclif/config": "1.7.4",
 		"@oclif/errors": "1.2.0",
