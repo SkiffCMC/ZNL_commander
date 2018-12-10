@@ -131,6 +131,35 @@ const getBytes = function(block) {
 	return bytes;
 };
 
+const objectNormalize = function(block) {
+		for (const i of Object.keys(block)) {
+			if (block[i] == null || typeof block[i] === 'undefined') {
+				delete block[i];
+			}
+		}
+
+		/*const report = this.scope.schema.validate(block, Block.prototype.schema);
+
+		if (!report) {
+			throw `Failed to validate block schema: ${this.scope.schema
+				.getLastErrors()
+				.map(err => err.message)
+				.join(', ')}`;
+		}*/
+
+		try {
+			for (let i = 0; i < block.transactions.length; i++) {
+				//block.transactions[i] = this.scope.transaction.objectNormalize(
+				//	block.transactions[i]
+				//);
+			}
+		} catch (e) {
+			throw e;
+		}
+
+		return block;
+}
+
 const createGenesis = (data) => {
 		const transactionTypes = {
 			SEND: 0,
@@ -174,12 +203,12 @@ const createGenesis = (data) => {
 			return 0;
 		});
 
-		const nextHeight = 1;
+		//const nextHeight = 1;
 
 		const reward = 0 ;
 		let totalFee = new Bignum(0);
 		let totalAmount = new Bignum(0);
-		console.log('totalAmount='+totalAmount);
+		/*console.log('totalAmount='+totalAmount);
 		for (var i in totalAmount){
 			try {
 				if (typeof(totalAmount[i]=='function')) {
@@ -189,7 +218,7 @@ const createGenesis = (data) => {
 			catch(err){
 				console.log('Access denied for '+i);
 			}
-		}
+		}*/
 		let size = 0;
 
 		const blockTransactions = [];
@@ -234,7 +263,7 @@ const createGenesis = (data) => {
 			//console.log('before second sodium');
 			block.blockSignature = signature.toString('hex');
 			console.log(block.blockSignature);
-			//block = this.objectNormalize(block);
+			block = objectNormalize(block);
 		} catch (e) {
 			throw e;
 		}
