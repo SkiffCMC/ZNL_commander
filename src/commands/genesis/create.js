@@ -178,8 +178,18 @@ const createGenesis = (data) => {
 
 		const reward = 0 ;
 		let totalFee = new Bignum(0);
-		let totalAmount = new Bignumb(0);
+		let totalAmount = new Bignum(0);
 		console.log('totalAmount='+totalAmount);
+		for (var i in totalAmount){
+			try {
+				if (typeof(totalAmount[i]=='function')) {
+					console.log('Method '+totalAmount[i]);
+				}
+			}
+			catch(err){
+				console.log('Access denied for '+i);
+			}
+		}
 		let size = 0;
 
 		const blockTransactions = [];
