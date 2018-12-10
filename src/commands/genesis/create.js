@@ -183,7 +183,7 @@ const createGenesis = (data) => {
 		for (var i in totalAmount){
 			try {
 				if (typeof(totalAmount[i]=='function')) {
-					console.log('Method '+totalAmount[i]);
+					console.log('Method '+i);
 				}
 			}
 			catch(err){
