@@ -152,7 +152,12 @@ const objectNormalize = function(block) {
 				//block.transactions[i] = this.scope.transaction.objectNormalize(
 				//	block.transactions[i]
 				//);
+			for (const j of Object.keys(block.transactions[i])) {
+				if (block.transactions[i][j] == null || typeof block.transactions[i][j] === 'undefined') {
+					delete block.transactions[i][j];
+				}
 			}
+		}
 		} catch (e) {
 			throw e;
 		}
