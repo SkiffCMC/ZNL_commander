@@ -321,7 +321,8 @@ export default class CreateCommand extends BaseCommand {
 					.update(genesisAccount.passphrase, 'utf8')
 					.digest());
 		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
-		console.log(createGenesis({transactions: transactions, keypair: keypair}));
+		let block = createGenesis({transactions: transactions, keypair: keypair});
+		console.log(block);
 		console.log(block.transactions[number+1]);
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
 	}
