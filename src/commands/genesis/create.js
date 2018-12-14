@@ -301,11 +301,11 @@ export default class CreateCommand extends BaseCommand {
 		const genesisAccount = createAccount();
 		const whitelistAccount = createAccount();
 		//this.print('Genesis acc:');
-		this.print(genesisAccount);
+		//this.print(genesisAccount);
 		const number = 3;
 		const delegates = new Array(number).fill().map(createAccount);
 		//this.print('Accounts:');
-		this.print(delegates);
+		//this.print(delegates);
 		const transactions = [];
 		//function createDelegateTransaction(phrase, pos){
 		//	this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
