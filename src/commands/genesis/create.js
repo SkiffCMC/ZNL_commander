@@ -244,8 +244,8 @@ const createGenesis = (data) => {
 
 		let block = {
 			version: 0,
-			totalAmount: totalAmount.toString(),
-			totalFee: totalFee.toString(),
+			totalAmount: totalAmount.toNumber(),
+			totalFee: totalFee.toNumber(),
 			reward,
 			payloadHash: payloadHash.digest().toString('hex'),
 			timestamp: 0,
