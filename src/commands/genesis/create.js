@@ -133,7 +133,7 @@ const getBytes = function(block) {
 
 const objectNormalize = function(block) {
 		for (const i of Object.keys(block)) {
-			if (i != 'previousBlock') && (block[i] == null || typeof block[i] === 'undefined') {
+			if ((i != 'previousBlock') && (block[i] == null || typeof block[i] === 'undefined')) {
 				delete block[i];
 			}
 		}
