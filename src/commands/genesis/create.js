@@ -208,7 +208,7 @@ const createGenesis = (data) => {
 			return 0;
 		});
 
-		//const nextHeight = 1;
+		const nextHeight = 1;
 
 		const reward = 0 ;
 		let totalFee = new Bignum(0);
@@ -254,6 +254,7 @@ const createGenesis = (data) => {
 			previousBlock: null,
 			generatorPublicKey: data.keypair.publicKey.toString('hex'),
 			transactions: blockTransactions,
+			height: nextHeight,
 			blockSignature:null,
 		};
 
@@ -267,8 +268,15 @@ const createGenesis = (data) => {
 			sodium.crypto_sign_detached(signature, hash, data.keypair.privateKey);
 			//console.log('before second sodium');
 			block.blockSignature = signature.toString('hex');
-			console.log(block.blockSignature);
+			//console.log(block.blockSignature);
 			block = objectNormalize(block);
+			const blockHash = cryptography.hash(getBytes(block));
+			block.id = cryptography.getFirstEightBytesReversed(
+				blockHash,
+			);
+	const firstEntriesToNumber = cryptography.bufferToBigNumberString(
+		bufferFromFirstEntriesReversed,
+	);
 		} catch (e) {
 			throw e;
 		}
