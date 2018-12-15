@@ -273,7 +273,7 @@ const createGenesis = (data) => {
 			const blockHash = cryptography.hash(getBytes(block));
 			block.id = cryptography.getFirstEightBytesReversed(
 				blockHash,
-			);
+			).toString('hex');
 		} catch (e) {
 			throw e;
 		}
