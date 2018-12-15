@@ -271,9 +271,9 @@ const createGenesis = (data) => {
 			//console.log(block.blockSignature);
 			block = objectNormalize(block);
 			const blockHash = cryptography.hash(getBytes(block));
-			block.id = cryptography.getFirstEightBytesReversed(
+			block.id = cryptography.bufferToBigNumberString(cryptography.getFirstEightBytesReversed(
 				blockHash,
-			).toString('hex');
+			),);
 		} catch (e) {
 			throw e;
 		}
