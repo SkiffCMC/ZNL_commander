@@ -274,9 +274,6 @@ const createGenesis = (data) => {
 			block.id = cryptography.getFirstEightBytesReversed(
 				blockHash,
 			);
-	const firstEntriesToNumber = cryptography.bufferToBigNumberString(
-		bufferFromFirstEntriesReversed,
-	);
 		} catch (e) {
 			throw e;
 		}
