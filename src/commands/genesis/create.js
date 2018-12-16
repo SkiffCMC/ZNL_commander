@@ -321,6 +321,7 @@ export default class CreateCommand extends BaseCommand {
 		delegates.forEach(function tr(value,index) {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
+			console.log('encryptedPassphrase= '+cryptography.encryptAES256GCMWithPassword(value.passphrase, genesisAccount.passphrase, 1,)+' for publicKey= '+value.publicKey)
 		});
 		let keypair = makeKeypair(crypto
 					.createHash('sha256')
