@@ -322,7 +322,7 @@ export default class CreateCommand extends BaseCommand {
 		delegates.forEach(function tr(value,index) {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
-			fs.writeFile('for_config.txt','encryptedPassphrase= '+JSON.stringify(cryptography.encryptPassphraseWithPassword(value.passphrase, genesisAccount.passphrase, 1,),null,2)+' for publicKey= '+value.publicKey+'\n',(err)=>{
+			fs.appendFile('for_config.txt','encryptedPassphrase= '+JSON.stringify(cryptography.encryptPassphraseWithPassword(value.passphrase, genesisAccount.passphrase, 1,),null,2)+' for publicKey= '+value.publicKey+'\n',(err)=>{
 				if (err) {
 					console.log('Error! '+err);
 				}
