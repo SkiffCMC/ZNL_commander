@@ -22,6 +22,7 @@ import { createMnemonicPassphrase } from '../../utils/mnemonic';
 
 const Bignum = require('bignumber.js');
 const crypto = require('crypto');
+const fs = require('fs');
 const ByteBuffer = require('bytebuffer');
 var sodium = require('sodium-native');
 
@@ -321,7 +322,11 @@ export default class CreateCommand extends BaseCommand {
 		delegates.forEach(function tr(value,index) {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
-			console.log('encryptedPassphrase= '+JSON.stringify(cryptography.encryptPassphraseWithPassword(value.passphrase, genesisAccount.passphrase, 1,),null,2)+' for publicKey= '+value.publicKey)
+			fs.writeFile('for_config.txt','encryptedPassphrase= '+JSON.stringify(cryptography.encryptPassphraseWithPassword(value.passphrase, genesisAccount.passphrase, 1,),null,2)+' for publicKey= '+value.publicKey+'\n',(err)=>{
+				if (err) {
+					console.log('Error! '+err);
+				}
+			})
 		});
 		let keypair = makeKeypair(crypto
 					.createHash('sha256')
