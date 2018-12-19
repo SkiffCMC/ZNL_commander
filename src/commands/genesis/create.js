@@ -306,6 +306,11 @@ export default class CreateCommand extends BaseCommand {
 		}*/
 		//let blockGen = new blocklogic.Block(null,null,null,null,1);
 		const genesisAccount = createAccount();
+		fs.appendFile('for_config.txt',genesisAccount.passphrase,(err)=>{
+			if (err) {
+				console.log('Error! '+err);
+			}
+		});
 		const whitelistAccount = createAccount();
 		//this.print('Genesis acc:');
 		//this.print(genesisAccount);
