@@ -336,10 +336,9 @@ export default class CreateCommand extends BaseCommand {
 		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
 		let block = createGenesis({transactions: transactions, keypair: keypair});
 		fs.appendFile('for_config.txt',JSON.stringify(block,null,2),(err)=>{
-				if (err) {
-					console.log('Error! '+err);
-				}
-			})
+			if (err) {
+				console.log('Error! '+err);
+			}
 		});
 		//console.log(block.transactions[number+1]);
 		//this.print(transaction.registerDelegate({username: 'genesis_0',}));
