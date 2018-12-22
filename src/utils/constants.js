@@ -13,7 +13,7 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import { MAINNET_NETHASH, TESTNET_NETHASH } from '@liskhq/lisk-constants';
+import { MAINNET_NETHASH, TESTNET_NETHASH, ZNLDEVNET_NETHASH } from '@liskhq/lisk-constants';
 
 export const COMMAND_TYPES = [
 	'accounts',
