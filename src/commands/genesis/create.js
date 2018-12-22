@@ -306,13 +306,14 @@ export default class CreateCommand extends BaseCommand {
 		}*/
 		//let blockGen = new blocklogic.Block(null,null,null,null,1);
 		const genesisAccount = createAccount();
-		fs.appendFile('for_config.txt','genesis: ' + genesisAccount.passphrase,(err)=>{
+		fs.appendFile('for_config.txt','genesis: ' + genesisAccount.passphrase + '\n',(err)=>{
 			if (err) {
 				console.log('Error! '+err);
 			}
 		});
-		const whitelistAccount = createAccount();
-		fs.appendFile('for_config.txt','whitelist: ' + whitelistAccount.passphrase,(err)=>{
+		const whitelistAccount0 = createAccount();
+		const whitelistAccount1 = createAccount();
+		fs.appendFile('for_config.txt','whitelist0: ' + whitelistAccount0.passphrase + '\n' + 'whitelist1: ' + whitelistAccount1.passphrase + '\n',(err)=>{
 			if (err) {
 				console.log('Error! '+err);
 			}
@@ -327,7 +328,8 @@ export default class CreateCommand extends BaseCommand {
 		//function createDelegateTransaction(phrase, pos){
 		//	this.print(transaction.registerDelegate({username: 'genesis_'+pos, passphrase: phrase}));
 		//};
-		transactions.push(transaction.transfer({amount: 1000000, passphrase:genesisAccount.passphrase, recipientId:whitelistAccount.address},1,genesisAccount.passphrase));
+		transactions.push(transaction.transfer({amount: 1000000, passphrase:genesisAccount.passphrase, recipientId:whitelistAccount0.address},1,genesisAccount.passphrase));
+		transactions.push(transaction.transfer({amount: 1000000, passphrase:genesisAccount.passphrase, recipientId:whitelistAccount1.address},1,genesisAccount.passphrase));
 		const votes = new Array(number).fill();
 		delegates.forEach(function tr(value,index) {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
@@ -343,7 +345,8 @@ export default class CreateCommand extends BaseCommand {
 					.createHash('sha256')
 					.update(genesisAccount.passphrase, 'utf8')
 					.digest());
-		transactions.push(transaction.castVotes({passphrase:whitelistAccount.passphrase, votes:votes},1,genesisAccount.passphrase));
+		transactions.push(transaction.castVotes({passphrase:whitelistAccount0.passphrase, votes:votes},1,genesisAccount.passphrase));
+		transactions.push(transaction.castVotes({passphrase:whitelistAccount0.passphrase, votes:votes},1,genesisAccount.passphrase));
 		let block = createGenesis({transactions: transactions, keypair: keypair});
 		fs.appendFile('for_config.txt',JSON.stringify(block,null,2),(err)=>{
 			if (err) {
