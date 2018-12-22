@@ -346,7 +346,7 @@ export default class CreateCommand extends BaseCommand {
 					.update(genesisAccount.passphrase, 'utf8')
 					.digest());
 		transactions.push(transaction.castVotes({passphrase:whitelistAccount0.passphrase, votes:votes},1,genesisAccount.passphrase));
-		transactions.push(transaction.castVotes({passphrase:whitelistAccount0.passphrase, votes:votes},1,genesisAccount.passphrase));
+		transactions.push(transaction.castVotes({passphrase:whitelistAccount1.passphrase, votes:votes},1,genesisAccount.passphrase));
 		let block = createGenesis({transactions: transactions, keypair: keypair});
 		fs.appendFile('for_config.txt',JSON.stringify(block,null,2),(err)=>{
 			if (err) {
