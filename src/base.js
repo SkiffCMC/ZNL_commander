@@ -31,6 +31,7 @@ export default class BaseCommand extends Command {
 		process.env.XDG_CONFIG_HOME =
 			process.env.LISK_COMMANDER_CONFIG_DIR ||
 			`${os.homedir()}/${defaultConfigFolder}`;
+		console.log("Config dir = "+process.env.XDG_CONFIG_HOME);
 		this.userConfig = getConfig(process.env.XDG_CONFIG_HOME);
 	}
 
