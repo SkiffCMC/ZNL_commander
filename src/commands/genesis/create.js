@@ -306,12 +306,17 @@ export default class CreateCommand extends BaseCommand {
 		}*/
 		//let blockGen = new blocklogic.Block(null,null,null,null,1);
 		const genesisAccount = createAccount();
-		fs.appendFile('for_config.txt',genesisAccount.passphrase,(err)=>{
+		fs.appendFile('for_config.txt','genesis: ' + genesisAccount.passphrase,(err)=>{
 			if (err) {
 				console.log('Error! '+err);
 			}
 		});
 		const whitelistAccount = createAccount();
+		fs.appendFile('for_config.txt','whitelist: ' + whitelistAccount.passphrase,(err)=>{
+			if (err) {
+				console.log('Error! '+err);
+			}
+		});
 		//this.print('Genesis acc:');
 		//this.print(genesisAccount);
 		const number = 3;
@@ -328,7 +333,7 @@ export default class CreateCommand extends BaseCommand {
 			transactions.push(transaction.registerDelegate({username: 'genesis_'+(index+1), passphrase: value.passphrase, },1,genesisAccount.passphrase));
 			votes[index] = value.publicKey;
 			let ef = cryptography.encryptPassphraseWithPassword(value.passphrase, genesisAccount.passphrase, 1,);
-		fs.appendFile('for_config.txt','{\n"encryptedPassphrase":\n"'+['iterations='+ef.iterations,'salt='+ef.salt,'cipherText='+ef.cipherText,'iv='+ef.iv,'tag='+ef.tag,'version='+ef.version].join('&')+'",\n"publicKey":"'+value.publicKey+'"\n},\n',(err)=>{
+			fs.appendFile('for_config.txt','{\n"encryptedPassphrase":\n"'+['iterations='+ef.iterations,'salt='+ef.salt,'cipherText='+ef.cipherText,'iv='+ef.iv,'tag='+ef.tag,'version='+ef.version].join('&')+'",\n"publicKey":"'+value.publicKey+'"\n},\n',(err)=>{
 				if (err) {
 					console.log('Error! '+err);
 				}
