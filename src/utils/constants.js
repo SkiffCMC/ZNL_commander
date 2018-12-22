@@ -45,6 +45,7 @@ export const API_PROTOCOLS = ['http:', 'https:'];
 export const NETHASHES = {
 	main: MAINNET_NETHASH,
 	test: TESTNET_NETHASH,
+	znldev: ZNLDEVNET_NETHASH,
 };
 
 export const SORT_FIELDS = [

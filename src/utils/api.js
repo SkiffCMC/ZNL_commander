@@ -20,6 +20,7 @@ const seedNodes = {
 	main: APIClient.constants.MAINNET_NODES,
 	test: APIClient.constants.TESTNET_NODES,
 	beta: APIClient.constants.BETANET_NODES,
+	znldev: APIClient.constants.ZNLDEVNET_NODES,
 };
 
 const getAPIClient = ({ nodes, network }) => {
