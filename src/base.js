@@ -33,6 +33,7 @@ export default class BaseCommand extends Command {
 			`${os.homedir()}/${defaultConfigFolder}`;
 		console.log("Config dir = "+process.env.XDG_CONFIG_HOME);
 		this.userConfig = getConfig(process.env.XDG_CONFIG_HOME);
+		console.log("\nConfig = "+JSON.stringify(this.userConfig));
 	}
 
 	async finally(error) {
